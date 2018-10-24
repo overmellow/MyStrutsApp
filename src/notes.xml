@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+<struts>
+
+	<package name="notes" namespace="/notes" extends="struts-default">	
+	                     
+     	<action name="all" class="com.wv.mfaraji.mystrutsapp.action.NoteAction" method="getAllNotes">
+     		<interceptor-ref name="authStack" />
+     		<result name="success">/notes.jsp</result>
+        </action>
+        
+        <action name="view">
+            <result>/note.jsp</result>
+        </action>
+        
+        <action name="create">
+            <result>/newNote.jsp</result>
+        </action>
+        
+        <action name="createNote" class="com.wv.mfaraji.mystrutsapp.action.NoteAction" method="createNewNote">
+        	<result name="success" type="redirectAction">all</result>            
+        </action>
+        
+	</package>
+	
+</struts>  
