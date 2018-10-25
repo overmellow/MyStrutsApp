@@ -5,9 +5,24 @@
 <struts>
 
 	<package name="notes" namespace="/notes" extends="struts-default">	
-	                     
+		<interceptors>
+			<interceptor name="authInterceptor" class="com.wv.mfaraji.mystrutsapp.interceptor.AuthInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="authInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>		
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="login" type="redirect">/auth/login</result>
+			<!-- <result name="login" type="redirectAction">
+				<param name="actionName">login</param>
+				<param name="namespace">/auth</param>
+			</result> -->
+		</global-results>
+					                     
      	<action name="all" class="com.wv.mfaraji.mystrutsapp.action.NoteAction" method="getAllNotes">
-     		<interceptor-ref name="authStack" />
      		<result name="success">/notes.jsp</result>
         </action>
         
@@ -21,8 +36,7 @@
         
         <action name="createNote" class="com.wv.mfaraji.mystrutsapp.action.NoteAction" method="createNewNote">
         	<result name="success" type="redirectAction">all</result>            
-        </action>
-        
+        </action>        
 	</package>
 	
 </struts>  
